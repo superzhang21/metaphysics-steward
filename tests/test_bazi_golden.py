@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""八字换柱黄金回归：对照 参考排盘.权威排盘.com 实测四柱。
+"""八字换柱黄金回归：对照  实测四柱。
 
 覆盖：12 节气（含立春换年）交节前后临界、晚子时换日（真太阳时>=23:00）、
 跨经度（北京/乌鲁木齐/西安/哈尔滨）真太阳时对日/时柱影响、
@@ -14,7 +14,7 @@ from datetime import datetime
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'scripts'))
 from core.bazi import BaziEngine
 
-# (输入公历 datetime, 经度, use_true_solar, 权威排盘四柱[年月日时], 标签)
+# (输入公历 datetime, 经度, use_true_solar, 四柱[年月日时], 标签)
 GOLDEN = [
     # ── 2026 节气临界（北京 116.4，真太阳时开启）──
     (datetime(2026, 1, 5, 16, 21), 116.4, True, ["乙巳", "戊子", "己卯", "壬申"], "小寒-2"),

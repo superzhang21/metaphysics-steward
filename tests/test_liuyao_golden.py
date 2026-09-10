@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""六爻黄金案例自动回归：对照 权威排盘实测结果"""
+"""六爻黄金案例自动回归：对照 实测结果"""
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'scripts'))

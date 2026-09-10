@@ -2,7 +2,7 @@
 """玄学管家（Metaphysics Steward）主入口。
 
 七法排盘统一调度：八字 / 紫微斗数 / 大六壬 / 奇门遁甲 / 梅花易数 /
-金口诀 / 六爻（纳甲筮法，口径对照 参考排盘.权威排盘.com）。
+金口诀 / 六爻（纳甲筮法，口径）。
 
 示例：
   python3 steward.py --birthdate "1990-05-08 12:00" --sex 1 --mode all
@@ -56,7 +56,7 @@ def build_parser():
     parser.add_argument("--yao", help="六爻：手工指定六爻值(6/7/8/9)，自初爻到上爻，逗号分隔")
     parser.add_argument("--coin", help="六爻：铜钱结果六个(0-3 背数)，自初爻到上爻，逗号分隔")
     parser.add_argument("--no-true-solar", action="store_true",
-                        help="八字/日时柱不使用真太阳时（对应 权威排盘 真太阳时=不使用）")
+                        help="八字/日时柱不使用真太阳时（对应 真太阳时=不使用）")
     parser.add_argument("--male", help="合婚：男命出生时间 YYYY-MM-DD HH:MM")
     parser.add_argument("--female", help="合婚：女命出生时间 YYYY-MM-DD HH:MM")
     parser.add_argument("--male-lon", default=None, help="合婚：男命出生经度/城市（默认同 --birthplace）")
@@ -108,12 +108,12 @@ def run_all_engines(dt, true_dt, lunar, sex, longitude, args):
             mh_nums = parse_int_list(args.numbers, 3, "numbers")
         results["meihua"] = MeihuaEngine(lunar=lunar, numbers=mh_nums).analyze()
     if args.mode in ("qimen", "all", "json"):
-        # 奇门：以民用时间起课（权威排盘 奇门表单无经纬度/真太阳时字段，时家拆补转盘）
+        # 奇门：以民用时间起课（奇门表单无经纬度/真太阳时字段，时家拆补转盘）
         results["qimen"] = QimenEngine(get_lunar(dt)).analyze()
     if args.mode in ("ziwei", "all", "json"):
         results["ziwei"] = ZiweiEngine(lunar, solar_dt=true_dt).analyze()
     if args.mode in ("liuren", "all", "json"):
-        # 大六壬：以民用时间起课（权威排盘 大六壬表单无经纬度/真太阳时字段）
+        # 大六壬：以民用时间起课（大六壬表单无经纬度/真太阳时字段）
         results["liuren"] = LiurenEngine.from_civil(dt).analyze()
     if args.mode in ("jinkoujue", "all", "json"):
         results["jinkoujue"] = JinkoujueEngine.from_civil(dt, difen=args.difen).analyze()

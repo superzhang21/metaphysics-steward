@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """紫微斗数引擎 黄金回归。
 
-口径 2026-09-12 经 参考排盘.权威排盘.com/ZiWeiDouShu.htm 实测锁定：
+口径 2026-09-12 经  实测锁定：
 - 12 组黄金案例（不同年/月/日/时，真太阳时 zty=1，北京）：命宫/身宫/五行局/
   命主/身主 + 十四主星全图 逐一对照。
 - 五行局x农历日 -> 紫微宫 全表（水二/木三/金四/土五/火六 共 149 点）。
@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'
 from core.ziwei import ZiweiEngine, _ziwei_idx
 from core.calendar import get_true_solar_time, get_lunar
 
-# 权威排盘实测黄金案例（真太阳时，北京 116.4，男性）
+# 黄金案例（真太阳时，北京 116.4，男性）
 GOLDEN = [
     {  # case a
         'input': "1990-02-04 10:40", 'lon': 116.4,
@@ -91,7 +91,7 @@ GOLDEN = [
     },
 ]
 
-# 权威排盘实测 五行局 x 农历日 -> 紫微宫 全表（30 日，'?'=该农历月无 30 日）
+# 实测 五行局 x 农历日 -> 紫微宫 全表（30 日，'?'=该农历月无 30 日）
 JU_DAY_ZW = {"水二局": "丑寅寅卯卯辰辰巳巳午午未未申申酉酉戌戌亥亥子子丑丑寅寅卯卯辰", "木三局": "辰丑寅巳寅卯午卯辰未辰巳申巳午酉午未戌未申亥申酉子酉戌丑戌亥", "金四局": "亥辰丑寅子巳寅卯丑午卯辰寅未辰巳卯申巳午辰酉午未巳戌未申午亥", "土五局": "午亥辰丑寅未子巳寅卯申丑午卯辰酉寅未辰巳戌卯申巳午亥辰酉午?", "火六局": "酉午亥辰丑寅戌未子巳寅卯亥申丑午卯辰子酉寅未辰巳丑戌卯申巳?"}
 
 JUN = {'水二局': 2, '木三局': 3, '金四局': 4, '土五局': 5, '火六局': 6}
@@ -122,7 +122,7 @@ def test_golden_12():
 
 
 def test_ziwei_day_table():
-    """五行局 x 农历日 -> 紫微宫 全表（权威排盘 149 点）。"""
+    """五行局 x 农历日 -> 紫微宫 全表（ 149 点）。"""
     for ju_name, seq in JU_DAY_ZW.items():
         ju = JUN[ju_name]
         for d in range(1, 31):
@@ -130,7 +130,7 @@ def test_ziwei_day_table():
             if ch == '?':
                 continue
             assert ZX[_ziwei_idx(ju, d)] == ch, (ju_name, d, ZX[_ziwei_idx(ju, d)], ch)
-    print("OK  五行局x农历日 紫微全表（149 点）与 权威排盘 一致")
+    print("OK  五行局x农历日 紫微全表（149 点）与实测 一致")
 
 
 def test_late_zishi_boundary():
